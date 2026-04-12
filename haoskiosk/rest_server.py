@@ -70,9 +70,9 @@ from typing import Any, Awaitable, cast, Callable, Final, Literal, TypedDict, Ty
 from aiohttp import web  #type: ignore[import-not-found] #pylint: disable=import-error
 
 #-------------------------------------------------------------------------------
-__version__ = "1.3.0"
+__version__ = "1.3.1"
 __author__ = "Jeff Kosowsky"
-__copyright__ = "Copyright 2025 Jeff Kosowsky"
+__copyright__ = "Copyright 2025-2026 Jeff Kosowsky"
 
 # ----------------------------------------------------------------------------- #
 # Global variables

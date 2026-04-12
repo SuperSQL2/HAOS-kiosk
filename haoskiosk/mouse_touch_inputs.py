@@ -369,9 +369,9 @@ from typing import Any, cast, Callable, ClassVar, Final, Iterator, NotRequired, 
 from Xlib import display                  #type: ignore[import-untyped] #pylint: disable=import-error
 from Xlib.xobject.drawable import Window  #type: ignore[import-untyped] #pylint: disable=import-error
 #-------------------------------------------------------------------------------
-__version__ = "1.3.0"
+__version__ = "1.3.1"
 __author__ = "Jeff Kosowsky"
-__copyright__ = "Copyright 2025 Jeff Kosowsky"
+__copyright__ = "Copyright 2025-2026 Jeff Kosowsky"
 #-------------------------------------------------------------------------------
 #### User Configuration
 
