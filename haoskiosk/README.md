@@ -2,7 +2,7 @@
 
 Display HA dashboards in kiosk mode directly on your HAOS server.
 
-## Author: Jeff Kosowsky (version: 1.3.0, February 2026)
+## Author: Jeff Kosowsky (version: 1.3.1, April 2026)
 
 ## Description
 
@@ -42,7 +42,7 @@ please file an
 \*\*include full details of your setup (including computer hardware and
 display type details)and what you did along with a complete log.
 
-You can also use the `screenshot` REST API or keybinding (`Ctl+Alt+k`) or
+Note you can use the `screenshot` REST API or keybinding (`Ctl+Alt+k`) or
 touch gesture (Quadruple 3 finger tap) to save a screenshot to
 `/media/screenshots`
 
@@ -74,18 +74,10 @@ ______________________________________________________________________
 4. Press **Start** to run the Add-on.
 
 **If you are having trouble installing the add-on or getting displays and
-touchscreens working, please see the github issues page
-(https://github.com/puterboy/HAOS-kiosk/issues)as many common issues have
+touchscreens working, please see the **TROUBLESHOOTING** section below as
+well as the github issues page
+(https://github.com/puterboy/HAOS-kiosk/issues) as many common issues have
 already been addressed and resolved**
-
-### Notes
-
-- If screen is not working on an RPi3, try adding the following lines to
-  the `[pi3]` section of your `config.txt` on the boot partition:
-  ```
-  dtoverlay=vc4-fkms-v3d
-  max_framebuffers=2
-  ```
 
 ______________________________________________________________________
 
@@ -263,11 +255,16 @@ examples, and default gestures.
 
 ### Command Whitelist Regex
 
-Regex (Python) of shell command that can be used in creating gesture action
-commands or when running the `run_command` and `run_commands` REST APIs.
+Regex (Python) of shell commands that can be used in creating gesture
+action commands or when running the `run_command` and `run_commands` REST
+APIs.
 
-If left blank, then all commands are allowed except for those blacklisted
-as dangerous (otherwise, whitelist overrides internal blacklist).
+If only base name given, then path is assumed to be:
+`PATH=/bin:/usr/bin/:/usr/local/bin`
+
+If left blank, then all commands in `$PATH` are allowed except for those
+blacklisted as dangerous (otherwise, whitelist overrides path restrictions
+and internal blacklist).
 
 The pre-defined command blacklist includes commands like:
 
@@ -279,15 +276,12 @@ The pre-defined command blacklist includes commands like:
    cp, chmod, chown, dd, ln, mv, rm, tar
    mount, umount
    curl, nc, wget
-   find, xargs"
+   find, xargs
 ```
 
 Note that if you want to truly allow *all* commands, then use the wildcard
 `.*` but beware that it is DANGEROUS. If you want to disallow all commands
 set the regex to `^$`.
-
-Note that regardless of setting only commands found in `/bin`, `/usr/bin`,
-and `/usr/local/bin` of the HAOSKiosk Add-on container are allowed.
 
 ### VNC SERVER
 
@@ -983,3 +977,22 @@ Luakit modes and commands are similar to vi
 
 See [luakit documentation](https://wiki.archlinux.org/title/Luakit) for
 further usage information and available commands.
+
+______________________________________________________________________
+
+## TROUBLESHOOTING
+
+- If the display is not working on an RPi3, try adding the following lines
+  to the `[pi3]` section of your `config.txt` on the boot partition:
+
+  ```
+  dtoverlay=vc4-fkms-v3d
+  max_framebuffers=2
+  ```
+
+- If you see black borders (underscan) around the display on a Raspberry Pi
+  you can disable overscan in `config.txt` on the boot partition:
+
+  ```
+  disable_overscan=1
+  ```
